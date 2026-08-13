@@ -398,51 +398,162 @@
         @media (display-mode: standalone){ .install-bar{display:none!important} }
         
         @media (max-device-width: 480px) and (max-device-height: 480px), (max-width: 320px) {
-            body { font-size: 18px; }
-            /* Hilangkan border pinggir karena layar jam bulat */
-            .app-container { border: none; box-shadow: none; padding-bottom: 100px; }
+            /* WEAR OS TILES MODE */
+            body { 
+                overflow: hidden; /* Kunci scroll vertikal (tidak bisa scroll bawah/atas lagi) */
+                background-color: var(--app-bg);
+            }
             
-            /* Padding atas ekstra agar tidak kepotong bezel bulat atas jam */
-            header { padding: 50px 10px 20px; text-align: center; }
-            .header-top { flex-direction: column; justify-content: center; gap: 8px; margin-bottom: 20px; }
-            .header-icon { margin: 0 auto; width: 40px; height: 40px; font-size: 18px; }
-            .header-top h1 { font-size: 14px; }
-            .header-top p { font-size: 16px; }
+            /* Ubah container utama menjadi carousel horizontal (Tarik Kiri Kanan) */
+            .app-container { 
+                display: flex;
+                flex-direction: row;
+                overflow-x: auto;
+                overflow-y: hidden;
+                scroll-snap-type: x mandatory;
+                width: 100vw;
+                height: 100vh;
+                border: none; 
+                box-shadow: none; 
+                padding: 0; 
+                scrollbar-width: none; /* Sembunyikan scrollbar */
+            }
+            .app-container::-webkit-scrollbar { display: none; }
             
-            /* Tab navigasi ditumpuk vertikal supaya area sentuh membesar */
-            .tabs { flex-direction: column; gap: 8px; }
-            .tab-btn { font-size: 14px; padding: 18px 0; }
+            /* Ratakan struktur HTML agar elemen anak bisa berjejer horizontal 1 garis lurus */
+            .content-area, .tab-content, .route-buttons, .timeline {
+                display: contents !important;
+            }
             
-            /* Sembunyikan elemen yg tidak esensial di layar super kecil */
-            .install-bar, .progress-wrap, .progress-label { display: none !important; }
+            /* Sembunyikan elemen yang bikin sempit di layar jam (termasuk tabs) */
+            .tabs, .install-bar, .progress-wrap, .next-stop, .section-title, .tip-box, .timeline::before {
+                display: none !important;
+            }
             
-            .content-area { padding: 10px 15px; }
-            
-            /* Rute ditumpuk vertikal dengan jarak agak jauh */
-            .route-buttons { flex-direction: column; gap: 16px; }
-            
-            /* Modifikasi Timeline: buang garis samping, buat rata tengah untuk layar bulat */
-            .timeline { padding-left: 0; }
-            .timeline::before { display: none; }
-            .timeline-item { flex-direction: column; align-items: center; text-align: center; gap: 8px; margin-bottom: 40px; }
-            
-            /* Icon digeser ke tengah atas, sedikit menumpuk dengan card */
-            .timeline-icon { left: 0; margin-bottom: -24px; z-index: 5; }
-            .timeline-card { margin-left: 0; padding-top: 36px; width: 100%; }
-            
-            /* Teks disesuaikan */
-            .timeline-card p { font-size: 18px; }
-            .tag-container { justify-content: center; }
-            
-            /* Next stop disesuaikan membulat di tengah */
-            .next-stop { margin: 10px 10px 30px; text-align: center; }
-            
-            /* Tombol diperbesar signifikan agar gampang ditekan jari gemuk */
-            .done-btn, .route-btn, .next-stop button { padding: 20px 12px; font-size: 12px; }
+            /* Hapus kontainer notes di bawah */
+            .app-container > div[style*="padding"] { display: none !important; }
 
-            .budget-hero { padding: 50px 10px 20px; text-align: center; }
-            .budget-item { flex-direction: column; text-align: center; gap: 12px; }
-            .budget-amount { text-align: center; }
+            /* Aturan baku untuk setiap TILE (1 Layar Penuh per aksi) */
+            header, .route-btn, .timeline-item, .budget-hero, .budget-item {
+                flex: 0 0 100vw;
+                width: 100vw;
+                height: 100vh;
+                scroll-snap-align: center;
+                display: flex !important;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                padding: 30px; 
+                box-sizing: border-box;
+                margin: 0;
+            }
+
+            /* --- TILE 1: HEADER COVER --- */
+            header {
+                background: transparent;
+                color: var(--text-main);
+            }
+            .header-top {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 15px;
+                margin: 0;
+            }
+            .header-top h1 { color: #000; text-shadow: 2px 2px 0px #fff; font-size: 18px; }
+            .header-top p { color: var(--text-muted); font-size: 12px; }
+            .header-icon { margin: 0; width: 60px; height: 60px; font-size: 30px; border-radius: 50%; background: #fff;}
+
+            /* --- TILE 2: TOMBOL RUTE MAPS --- */
+            .route-btn {
+                background: #fff;
+                border: var(--pixel-border);
+                box-shadow: 6px 6px 0px #000;
+                width: 55vw;
+                height: 55vw;
+                max-width: 150px;
+                max-height: 150px;
+                border-radius: 20px;
+                margin: auto;
+                font-size: 10px;
+                text-align: center;
+                padding: 10px;
+            }
+            .route-day, .route-full { background: #4deeea; }
+            .route-night { background: #b28dff; }
+
+            /* --- TILE 3+: TIMELINE (KARTU JADWAL) --- */
+            .timeline-item { gap: 10px; }
+            .timeline-icon {
+                position: static;
+                margin: 0 0 10px 0;
+                width: 50px; height: 50px; font-size: 24px;
+                z-index: 5;
+            }
+            .timeline-card {
+                background: transparent;
+                border: none;
+                box-shadow: none !important;
+                margin: 0; padding: 0;
+                width: 100%;
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .time-badge { font-size: 9px; margin-bottom: 8px; box-shadow: none; border: 1px solid #000;}
+            .timeline-card h3 { font-size: 14px; margin-bottom: 6px; }
+            .timeline-card p { 
+                font-size: 12px; line-height: 1.2; margin-bottom: 12px; 
+                display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; 
+            }
+            .tag-container { justify-content: center; margin-bottom: 12px; }
+            .tag { font-size: 8px; padding: 4px 6px; }
+            .done-btn {
+                padding: 12px;
+                font-size: 10px;
+                width: 85%;
+                background: #ffeb3b;
+            }
+            .timeline-card.done .done-btn { background: #4caf50; color: #fff;}
+
+            /* --- TILE BUDGET --- */
+            .budget-hero {
+                background: transparent;
+                color: #000;
+                padding: 0; text-align: center;
+            }
+            .budget-hero-bg { display: none; }
+            .budget-hero h3 { color: #000; font-size: 12px; }
+            .budget-hero .total { font-size: 24px; }
+            .budget-hero .total-max { color: #ff5722; text-shadow: none; font-size: 18px;}
+            .budget-hero p:last-child { display: none; } 
+            
+            .budget-item { text-align: center; gap: 8px; background: transparent; }
+            .budget-icon { width: 45px; height: 45px; font-size: 22px; margin:0; }
+            .budget-details h4 { font-size: 12px; margin-bottom: 4px;}
+            .budget-details p { font-size: 10px; }
+            .budget-amount { text-align: center; margin: 0; }
+            .budget-input { display: none; } 
+
+            /* Animasi Petunjuk "Geser/Swipe" di tengah bawah */
+            body::after {
+                content: ">> GESER >>";
+                position: fixed;
+                bottom: 10%;
+                left: 50%;
+                transform: translateX(-50%);
+                font-family: 'Press Start 2P', cursive;
+                font-size: 8px;
+                color: #000;
+                animation: swipeHint 2.5s ease-in-out infinite;
+                pointer-events: none;
+                z-index: 1000;
+            }
+            @keyframes swipeHint {
+                0%, 100% { opacity: 0; transform: translateX(-50%); }
+                50% { opacity: 1; transform: translateX(-30%); }
+            }
         }
 </style>
 </head>
