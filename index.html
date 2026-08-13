@@ -396,6 +396,54 @@
         .progress>span { display:block; height:100%; width:0; background:#4caf50; transition:width 0.3s steps(10); border-right: 2px solid #fff;}
         
         @media (display-mode: standalone){ .install-bar{display:none!important} }
+        
+        @media (max-device-width: 480px) and (max-device-height: 480px), (max-width: 320px) {
+            body { font-size: 18px; }
+            /* Hilangkan border pinggir karena layar jam bulat */
+            .app-container { border: none; box-shadow: none; padding-bottom: 100px; }
+            
+            /* Padding atas ekstra agar tidak kepotong bezel bulat atas jam */
+            header { padding: 50px 10px 20px; text-align: center; }
+            .header-top { flex-direction: column; justify-content: center; gap: 8px; margin-bottom: 20px; }
+            .header-icon { margin: 0 auto; width: 40px; height: 40px; font-size: 18px; }
+            .header-top h1 { font-size: 14px; }
+            .header-top p { font-size: 16px; }
+            
+            /* Tab navigasi ditumpuk vertikal supaya area sentuh membesar */
+            .tabs { flex-direction: column; gap: 8px; }
+            .tab-btn { font-size: 14px; padding: 18px 0; }
+            
+            /* Sembunyikan elemen yg tidak esensial di layar super kecil */
+            .install-bar, .progress-wrap, .progress-label { display: none !important; }
+            
+            .content-area { padding: 10px 15px; }
+            
+            /* Rute ditumpuk vertikal dengan jarak agak jauh */
+            .route-buttons { flex-direction: column; gap: 16px; }
+            
+            /* Modifikasi Timeline: buang garis samping, buat rata tengah untuk layar bulat */
+            .timeline { padding-left: 0; }
+            .timeline::before { display: none; }
+            .timeline-item { flex-direction: column; align-items: center; text-align: center; gap: 8px; margin-bottom: 40px; }
+            
+            /* Icon digeser ke tengah atas, sedikit menumpuk dengan card */
+            .timeline-icon { left: 0; margin-bottom: -24px; z-index: 5; }
+            .timeline-card { margin-left: 0; padding-top: 36px; width: 100%; }
+            
+            /* Teks disesuaikan */
+            .timeline-card p { font-size: 18px; }
+            .tag-container { justify-content: center; }
+            
+            /* Next stop disesuaikan membulat di tengah */
+            .next-stop { margin: 10px 10px 30px; text-align: center; }
+            
+            /* Tombol diperbesar signifikan agar gampang ditekan jari gemuk */
+            .done-btn, .route-btn, .next-stop button { padding: 20px 12px; font-size: 12px; }
+
+            .budget-hero { padding: 50px 10px 20px; text-align: center; }
+            .budget-item { flex-direction: column; text-align: center; gap: 12px; }
+            .budget-amount { text-align: center; }
+        }
 </style>
 </head>
 <body>
