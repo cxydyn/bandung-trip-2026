@@ -3,23 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="theme-color" content="#0d9488">
+<meta name="theme-color" content="#2b2b40">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Bandung Trip">
 <link rel="manifest" href="./manifest.webmanifest">
-<title>Bandung Trip 2026</title>
+<title>Bandung Trip 2026 - Pixel Edition</title>
+
+<!-- Mengimpor font retro/pixel dari Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+
 <style>
         :root {
-            --primary: #0d9488;
-            --primary-light: #14b8a6;
-            --primary-dark: #0f766e;
-            --bg-color: #f8fafc;
+            --pixel-border: 4px solid #000000;
+            --pixel-shadow: 4px 4px 0px #000000;
+            --pixel-shadow-active: 0px 0px 0px #000000;
+            
+            /* Retro Color Palette */
+            --bg-color: #8b9bb4; /* Outer background */
+            --app-bg: #e0f8d0; /* Gameboy-ish inner background */
             --card-bg: #ffffff;
-            --text-main: #334155;
-            --text-muted: #64748b;
-            --border-color: #e2e8f0;
+            
+            --primary: #ff5722; /* Retro Orange/Red */
+            --primary-dark: #cddc39;
+            --secondary: #4caf50; /* Retro Green */
+            --accent: #ffeb3b; /* Coin Yellow */
+            --text-main: #111111;
+            --text-muted: #555555;
+            --border-color: #000000;
         }
 
         * {
@@ -29,147 +43,177 @@
 
         body {
             margin: 0;
-            /* Menggunakan font sistem bawaan HP (San Francisco di iOS, Roboto di Android) */
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'VT323', monospace;
+            font-size: 22px;
             background-color: var(--bg-color);
             color: var(--text-main);
-            -webkit-font-smoothing: antialiased;
+            -webkit-font-smoothing: none; /* Crisper rendering for pixel fonts */
+        }
+
+        h1, h2, h3, h4, .retro-font {
+            font-family: 'Press Start 2P', cursive;
+            text-transform: uppercase;
         }
 
         .app-container {
             max-width: 480px;
             margin: 0 auto;
-            background-color: var(--bg-color);
+            background-color: var(--app-bg);
             min-height: 100vh;
-            box-shadow: 0 0 20px rgba(0,0,0,0.05);
+            border-left: var(--pixel-border);
+            border-right: var(--pixel-border);
             position: relative;
             padding-bottom: 40px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
         }
 
         /* HEADER STYLES */
         header {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            background: #3f3f74;
             color: white;
             padding: 24px 20px 16px;
-            border-bottom-left-radius: 24px;
-            border-bottom-right-radius: 24px;
+            border-bottom: var(--pixel-border);
             position: sticky;
             top: 0;
             z-index: 100;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
         .header-top {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
 
-        .header-top h1 { margin: 0; font-size: 24px; font-weight: 800; }
-        .header-top p { margin: 4px 0 0; font-size: 14px; color: #ccfbf1; font-weight: 500; }
+        .header-top h1 { 
+            margin: 0; 
+            font-size: 16px; 
+            color: #ffeb3b;
+            text-shadow: 2px 2px 0px #000;
+            line-height: 1.4;
+        }
+        
+        .header-top p { 
+            margin: 8px 0 0; 
+            font-size: 18px; 
+            color: #fff; 
+        }
         
         .header-icon {
             font-size: 24px;
-            background: rgba(255,255,255,0.2);
-            width: 48px;
-            height: 48px;
+            background: #2b2b40;
+            width: 52px;
+            height: 52px;
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 50%;
-            backdrop-filter: blur(4px);
+            border: 2px solid #fff;
+            box-shadow: 2px 2px 0px #000;
         }
 
         /* TAB NAVIGATION STYLES */
         .tabs {
             display: flex;
-            background: rgba(0,0,0,0.15);
-            padding: 4px;
-            border-radius: 12px;
+            gap: 8px;
         }
 
         .tab-btn {
             flex: 1;
-            background: transparent;
-            border: none;
-            color: rgba(255,255,255,0.8);
-            padding: 10px 0;
-            font-weight: 600;
-            font-size: 14px;
-            border-radius: 8px;
+            background: #9aa4b5;
+            border: var(--pixel-border);
+            color: #000;
+            padding: 12px 0;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 10px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            box-shadow: 2px 2px 0px #000;
+            transition: all 0.1s;
         }
 
         .tab-btn.active {
-            background: white;
-            color: var(--primary);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background: var(--accent);
+            transform: translate(2px, 2px);
+            box-shadow: 0px 0px 0px #000;
+            color: #000;
+        }
+
+        .tab-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 0px 0px 0px #000;
         }
 
         /* CONTENT STYLES */
         .content-area {
-            padding: 20px;
+            padding: 24px 20px;
         }
 
         .tab-content {
             display: none;
-            animation: slideUpFade 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: pixelFade 0.2s steps(4, end) forwards;
         }
 
         .tab-content.active {
             display: block;
         }
 
-        @keyframes slideUpFade {
-            from { opacity: 0; transform: translateY(15px); }
+        @keyframes pixelFade {
+            from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         /* BUTTON STYLES */
         .route-buttons {
             display: flex;
-            gap: 10px;
-            margin-bottom: 24px;
+            gap: 12px;
+            margin-bottom: 32px;
         }
 
         .route-btn {
             flex: 1;
             text-align: center;
-            padding: 12px 10px;
-            border-radius: 12px;
+            padding: 14px 10px;
             text-decoration: none;
-            font-weight: 700;
-            font-size: 13px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            border: 1px solid;
+            gap: 8px;
+            border: var(--pixel-border);
+            box-shadow: var(--pixel-shadow);
             cursor: pointer;
+            color: #000;
+            transition: transform 0.1s, box-shadow 0.1s;
         }
         
-        .route-btn:active { transform: scale(0.98); }
+        .route-btn:active { 
+            transform: translate(4px, 4px); 
+            box-shadow: var(--pixel-shadow-active); 
+        }
 
-        .route-day { background: #e0f2fe; color: #0369a1; border-color: #bae6fd; }
-        .route-night { background: #e0e7ff; color: #4338ca; border-color: #c7d2fe; }
-        .route-full { background: #e0f2fe; color: #0369a1; border-color: #bae6fd; width: 100%; }
+        .route-day { background: #4deeea; }
+        .route-night { background: #b28dff; color: #000; }
+        .route-full { background: #4deeea; width: 100%; }
 
         .timeline {
             position: relative;
-            padding-left: 24px; /* Space for the line */
+            padding-left: 24px;
         }
 
         .timeline::before {
             content: '';
             position: absolute;
-            left: 20px;
+            left: 22px;
             top: 20px;
-            bottom: -20px;
-            width: 2px;
-            background: var(--border-color);
+            bottom: 0px;
+            width: 4px;
+            background: repeating-linear-gradient(
+                to bottom,
+                var(--border-color) 0,
+                var(--border-color) 8px,
+                transparent 8px,
+                transparent 16px
+            );
             z-index: 0;
         }
 
@@ -180,130 +224,119 @@
             gap: 16px;
         }
 
-        /* Hide line on last item */
-        .timeline-item:last-child::after {
-            content: '';
-            position: absolute;
-            left: -4px;
-            top: 40px;
-            bottom: -30px;
-            width: 10px;
-            background: var(--bg-color);
-            z-index: 1;
-        }
-
         .timeline-icon {
-            width: 44px;
-            height: 44px;
-            background: white;
-            border: 3px solid var(--bg-color);
-            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            background: #fff;
+            border: var(--pixel-border);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
+            font-size: 24px;
             z-index: 2;
             flex-shrink: 0;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+            box-shadow: 2px 2px 0px #000;
             position: relative;
-            left: -2px; /* Center align with the line */
+            left: -24px; /* Center align with the line */
         }
 
         .timeline-card {
             background: var(--card-bg);
             padding: 16px;
-            border-radius: 16px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-            border: 1px solid var(--border-color);
+            border: var(--pixel-border);
+            box-shadow: var(--pixel-shadow);
             flex: 1;
+            margin-left: -12px;
         }
 
         .time-badge {
             display: inline-block;
-            background: #f1f5f9;
-            color: #64748b;
-            font-size: 11px;
-            font-weight: 800;
-            padding: 4px 8px;
-            border-radius: 6px;
-            margin-bottom: 8px;
-            letter-spacing: 0.5px;
+            background: #000;
+            color: #fff;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 9px;
+            padding: 6px 8px;
+            margin-bottom: 12px;
+            box-shadow: 2px 2px 0px #888;
         }
 
         .timeline-card h3 {
-            margin: 0 0 6px 0;
-            font-size: 16px;
-            color: #0f172a;
-            line-height: 1.3;
+            margin: 0 0 10px 0;
+            font-size: 14px;
+            color: #000;
+            line-height: 1.4;
         }
 
         .timeline-card p {
-            margin: 0 0 12px 0;
-            font-size: 14px;
-            line-height: 1.5;
-            color: var(--text-muted);
+            margin: 0 0 16px 0;
+            font-size: 20px;
+            line-height: 1.2;
+            color: var(--text-main);
         }
 
         .tag-container {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
+            margin-bottom: 8px;
         }
 
         .tag {
             display: inline-flex;
             align-items: center;
             gap: 4px;
-            font-size: 12px;
-            font-weight: 700;
-            padding: 6px 10px;
-            border-radius: 8px;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 8px;
+            padding: 8px 10px;
+            border: 2px solid #000;
         }
 
-        .tag.free { background: #ecfdf5; color: #059669; }
-        .tag.cost { background: #fff1f2; color: #e11d48; }
-        .tag.buffer { background: #eff6ff; color: #2563eb; }
+        .tag.free { background: #4caf50; color: #fff; }
+        .tag.cost { background: #ff5722; color: #fff; }
+        .tag.buffer { background: #03a9f4; color: #fff; }
         
         .tip-box {
-            background: #fffbeb;
-            border: 1px solid #fde68a;
-            padding: 12px;
-            border-radius: 12px;
-            font-size: 12px;
-            color: #92400e;
-            line-height: 1.5;
-            margin-bottom: 12px;
+            background: #fff9c4;
+            border: var(--pixel-border);
+            padding: 16px;
+            font-size: 20px;
+            color: #000;
+            line-height: 1.3;
+            margin-bottom: 16px;
+            box-shadow: var(--pixel-shadow);
         }
+        
+        .tip-box b { font-family: 'Press Start 2P', cursive; font-size: 10px; display: block; margin-bottom: 8px;}
 
         .budget-hero {
-            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            background: #3f3f74;
             color: white;
             padding: 24px;
-            border-radius: 16px;
-            margin-bottom: 24px;
+            margin-bottom: 32px;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 10px 15px -3px rgba(13, 148, 136, 0.3);
+            border: var(--pixel-border);
+            box-shadow: var(--pixel-shadow);
         }
         
         .budget-hero-bg {
             position: absolute;
-            right: -20px;
+            right: -10px;
             bottom: -20px;
             font-size: 100px;
-            opacity: 0.1;
+            opacity: 0.2;
+            filter: grayscale(100%);
         }
 
-        .budget-hero h3 { margin: 0 0 8px; font-size: 13px; font-weight: 600; color: #ccfbf1; }
-        .budget-hero .total { font-size: 24px; font-weight: 800; margin: 0 0 4px 0; }
-        .budget-hero .total-max { font-size: 32px; font-weight: 800; margin: 0; }
-        .budget-hero .sub { font-size: 16px; font-weight: normal; color: #99f6e4; }
+        .budget-hero h3 { margin: 0 0 16px; font-size: 12px; color: #ffeb3b; }
+        .budget-hero .total { font-family: 'VT323', monospace; font-size: 24px; margin: 0 0 4px 0; }
+        .budget-hero .total-max { font-family: 'Press Start 2P', cursive; font-size: 18px; margin: 0; color: #fff; text-shadow: 2px 2px 0px #000; }
         
         .section-title {
-            margin: 0 0 16px 0;
-            font-size: 18px;
-            font-weight: 800;
-            color: #0f172a;
+            margin: 0 0 20px 0;
+            font-size: 14px;
+            color: #000;
+            text-shadow: 2px 2px 0px #fff;
         }
 
         .budget-item {
@@ -312,98 +345,106 @@
             gap: 16px;
             background: white;
             padding: 16px;
-            border-radius: 16px;
-            margin-bottom: 12px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            margin-bottom: 16px;
+            border: var(--pixel-border);
+            box-shadow: var(--pixel-shadow);
         }
 
         .budget-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
+            width: 48px;
+            height: 48px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 22px;
+            font-size: 24px;
+            border: 2px solid #000;
         }
 
-        .icon-blue { background: #eff6ff; }
-        .icon-orange { background: #fff7ed; }
-        .icon-gray { background: #f1f5f9; }
+        .icon-blue { background: #4deeea; }
+        .icon-orange { background: #ffeb3b; }
+        .icon-gray { background: #cccccc; }
 
         .budget-details { flex: 1; }
-        .budget-details h4 { margin: 0 0 4px; font-size: 14px; font-weight: 700; color: #1e293b; }
-        .budget-details p { margin: 0; font-size: 12px; color: var(--text-muted); }
+        .budget-details h4 { margin: 0 0 8px; font-size: 12px; color: #000; }
+        .budget-details p { margin: 0; font-size: 18px; color: var(--text-muted); }
         
         .budget-amount { text-align: right; }
-        .budget-amount .val { font-weight: 800; font-size: 14px; color: #0f172a; }
-        .budget-amount .sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+        .budget-amount .val { font-family: 'Press Start 2P', cursive; font-size: 10px; color: #000; }
+        .budget-amount .sub { font-size: 18px; color: var(--text-muted); margin-top: 4px; }
         
-    
-/* PWA enhancements */
-.install-bar{display:none;position:sticky;top:0;z-index:200;padding:10px 14px;background:#0f766e;color:#fff;gap:8px;align-items:center;justify-content:space-between;font-size:13px;font-weight:700}
-.install-bar button{border:0;border-radius:10px;padding:8px 12px;font-weight:800;background:#fff;color:#0f766e}
-.next-stop{margin:0 20px 18px;padding:14px 16px;border-radius:16px;background:#fff;border:1px solid #e2e8f0;box-shadow:0 2px 8px rgba(0,0,0,.04)}
-.next-stop small{display:block;color:#64748b;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
-.next-stop strong{display:block;font-size:16px;color:#0f172a;margin-bottom:8px}
-.next-stop button{border:0;border-radius:10px;background:#0d9488;color:#fff;padding:9px 12px;font-weight:800;cursor:pointer}
-.timeline-card.done{opacity:.58}
-.timeline-card.done h3{text-decoration:line-through}
-.done-btn{margin-top:10px;width:100%;border:1px solid #cbd5e1;background:#f8fafc;color:#334155;border-radius:10px;padding:9px;font-weight:800}
-.timeline-card.done .done-btn{background:#ecfdf5;border-color:#a7f3d0;color:#047857}
-.budget-input{width:100%;margin-top:10px;padding:9px 10px;border:1px solid #cbd5e1;border-radius:10px;font:inherit}
-.progress-wrap{margin:0 20px 18px}
-.progress-label{display:flex;justify-content:space-between;font-size:12px;font-weight:800;color:#64748b;margin-bottom:6px}
-.progress{height:8px;background:#e2e8f0;border-radius:99px;overflow:hidden}
-.progress>span{display:block;height:100%;width:0;background:#0d9488;transition:width .25s ease}
-@media (display-mode: standalone){.install-bar{display:none!important}}
+        .install-bar { display:none; position:sticky; top:0; z-index:200; padding:12px 14px; background:#ff5722; color:#fff; gap:8px; align-items:center; justify-content:space-between; border-bottom:var(--pixel-border); font-family: 'Press Start 2P', cursive; font-size: 8px;}
+        .install-bar button { border: 2px solid #000; padding: 10px 14px; background:#fff; color:#000; font-family: 'Press Start 2P', cursive; font-size: 8px; cursor: pointer; box-shadow: 2px 2px 0px #000;}
+        
+        .next-stop { margin: 0 20px 24px; padding: 20px; background: #fff; border: var(--pixel-border); box-shadow: var(--pixel-shadow); }
+        .next-stop small { display:block; color:#000; font-family: 'Press Start 2P', cursive; font-size:10px; margin-bottom:12px; }
+        .next-stop strong { display:block; font-size: 26px; color:#000; margin-bottom:16px; }
+        .next-stop button { border: var(--pixel-border); background:#ffeb3b; color:#000; padding:14px; font-family: 'Press Start 2P', cursive; font-size:10px; cursor:pointer; box-shadow: 2px 2px 0px #000; transition: transform 0.1s; width: 100%;}
+        .next-stop button:active { transform: translate(2px, 2px); box-shadow: 0px 0px 0px #000;}
+        
+        .timeline-card.done { opacity: 0.6; background: #cccccc; }
+        .timeline-card.done h3 { text-decoration: line-through; }
+        
+        .done-btn { margin-top:16px; width:100%; border:var(--pixel-border); background:#fff; color:#000; padding:12px; font-family: 'Press Start 2P', cursive; font-size:9px; box-shadow: 2px 2px 0px #000; cursor: pointer; transition: 0.1s;}
+        .done-btn:active { transform: translate(2px,2px); box-shadow: 0px 0px 0px #000; }
+        .timeline-card.done .done-btn { background:#4caf50; color:#fff; }
+        
+        .budget-input { width:100%; margin-top:12px; padding:12px; border:var(--pixel-border); font-family: 'VT323', monospace; font-size: 22px; background: #f4f4f4;}
+        
+        .progress-wrap { margin: 20px 20px 24px; background: #000; padding: 8px; border: var(--pixel-border); box-shadow: var(--pixel-shadow); }
+        .progress-label { display:flex; justify-content:space-between; font-family: 'Press Start 2P', cursive; font-size:10px; color:#fff; margin-bottom:10px; }
+        .progress { height: 16px; background:#333; border: 2px solid #555; position: relative;}
+        .progress>span { display:block; height:100%; width:0; background:#4caf50; transition:width 0.3s steps(10); border-right: 2px solid #fff;}
+        
+        @media (display-mode: standalone){ .install-bar{display:none!important} }
 </style>
 </head>
 <body>
     <div class="app-container">
-        
         <header>
             <div class="header-top">
                 <div>
-                    <h1>Bandung Trip 🚗</h1>
-                    <p>16 - 17 Agustus 2026</p>
+                    <h1>BANDUNG QUEST</h1>
+                    <p>LVL: 16 - 17 AGUSTUS</p>
                 </div>
-                <div class="header-icon">👨‍👩‍👧‍👦</div>
+                <div class="header-icon">👾</div>
             </div>
 
             <div class="tabs">
-                <button class="tab-btn active" onclick="switchTab('day1', this)">Hari 1</button>
-                <button class="tab-btn" onclick="switchTab('day2', this)">Hari 2</button>
-                <button class="tab-btn" onclick="switchTab('budget', this)">Budget</button>
+                <button class="tab-btn active" onclick="switchTab('day1', this)">STAGE 1</button>
+                <button class="tab-btn" onclick="switchTab('day2', this)">STAGE 2</button>
+                <button class="tab-btn" onclick="switchTab('budget', this)">GOLD</button>
             </div>
         </header>
 
+        <div class="install-bar" id="installBar">
+            <span>📱 INSTALL GAME</span>
+            <button id="installBtn">INSTALL</button>
+        </div>
         
-<div class="install-bar" id="installBar">
-  <span>📱 Pasang Bandung Trip di HP</span>
-  <button id="installBtn">Pasang</button>
-</div>
-<div class="progress-wrap">
-  <div class="progress-label"><span>Progress perjalanan</span><span id="progressText">0/0</span></div>
-  <div class="progress"><span id="progressFill"></span></div>
-</div>
-<div class="next-stop" id="nextStop">
-  <small>Tujuan berikutnya</small>
-  <strong id="nextStopName">Memuat...</strong>
-  <button id="navigateBtn">🗺️ Navigasi</button>
-</div>
+        <div class="progress-wrap">
+            <div class="progress-label">
+                <span>MAIN QUEST</span>
+                <span id="progressText">0/0</span>
+            </div>
+            <div class="progress"><span id="progressFill"></span></div>
+        </div>
+        
+        <div class="next-stop" id="nextStop">
+            <small>NEXT OBJECTIVE:</small>
+            <strong id="nextStopName">Loading...</strong>
+            <button id="navigateBtn">🗺️ OPEN MAP</button>
+        </div>
 
-<div class="content-area">
-            
+        <div class="content-area">
             <div id="day1" class="tab-content active">
                 
                 <div class="route-buttons">
-                    <a href="https://www.google.com/maps/dir/?api=1&origin=Vue+Palace+Artotel+Bandung&destination=Taman+Lalu+Lintas+Bandung&waypoints=Museum+Geologi+Bandung%7CBoemi+Mitoha+Bandung&travelmode=driving" target="_blank" class="route-btn route-day">
-                        🗺️ Rute Hari 1
+                    <!-- Update Rute Maps dengan Ayam Bakar Simpang -->
+                    <a href="https://www.google.com/maps/dir/?api=1&origin=Vue+Palace+Artotel+Bandung&destination=Taman+Lalu+Lintas+Bandung&waypoints=Museum+Geologi+Bandung%7CAyam+Bakar+Simpang+Lengkong+Bandung&travelmode=driving" target="_blank" class="route-btn route-day">
+                        🗺️ MAP STAGE 1
                     </a>
                     <a href="https://www.google.com/maps/dir/?api=1&origin=Vue+Palace+Artotel+Bandung&destination=Braga+Citywalk+Bandung&travelmode=driving" target="_blank" class="route-btn route-night">
-                        🌙 Rute Braga
+                        🌙 NIGHT MAP
                     </a>
                 </div>
 
@@ -412,12 +453,13 @@
                     <div class="timeline-item">
                         <div class="timeline-icon">☕</div>
                         <div class="timeline-card">
-                            <span class="time-badge">08.00 - 09.00</span>
+                            <span class="time-badge">08:00 - 09:00</span>
                             <h3>Sarapan & Persiapan</h3>
-                            <p>Makan pagi di Vue Palace ARTOTEL. Pastikan anak-anak sarapan dengan baik untuk energi bermain.</p>
+                            <p>Makan pagi di Vue Palace ARTOTEL. Isi HP (Health Points) anak-anak dengan sarapan untuk energi bermain.</p>
                             <div class="tag-container">
-                                <span class="tag free">💳 Gratis (Hotel)</span>
-                            </div><button class="done-btn" data-stop="1">☐ Tandai selesai</button>
+                                <span class="tag free">FREE (HOTEL)</span>
+                            </div>
+                            <button class="done-btn" data-stop="1">[ ] TANDAI SELESAI</button>
                         </div>
                     </div>
 
@@ -425,26 +467,28 @@
                     <div class="timeline-item">
                         <div class="timeline-icon">🏛️</div>
                         <div class="timeline-card">
-                            <span class="time-badge">09.30 - 11.15</span>
-                            <h3>Museum Geologi Bandung</h3>
-                            <p>Melihat fosil T-Rex raksasa, gajah purba, dan mencoba ruang simulasi gempa bumi. Sisakan waktu untuk keluar, parkir, dan menuju tempat makan.</p>
+                            <span class="time-badge">09:30 - 11:15</span>
+                            <h3>Museum Geologi</h3>
+                            <p>Melihat fosil T-Rex raksasa, gajah purba, dan mencoba ruang simulasi gempa bumi. Dungeon edukasi yang seru!</p>
                             <div class="tag-container">
-                                <span class="tag cost">🎟️ Rp 22.000</span>
-                                <span class="tag buffer">⏱️ Buffer perjalanan</span>
-                            </div><button class="done-btn" data-stop="2">☐ Tandai selesai</button>
+                                <span class="tag cost">GOLD: 22K</span>
+                                <span class="tag buffer">BUFFER WAKTU</span>
+                            </div>
+                            <button class="done-btn" data-stop="2">[ ] TANDAI SELESAI</button>
                         </div>
                     </div>
 
-                    <!-- Item 3 -->
+                    <!-- Item 3: UPDATE DESTINASI MAKAN SIANG -->
                     <div class="timeline-item">
-                        <div class="timeline-icon">🍽️</div>
+                        <div class="timeline-icon">🍗</div>
                         <div class="timeline-card">
-                            <span class="time-badge">12.00 - 13.30</span>
-                            <h3>Makan Siang</h3>
-                            <p>RM Boemi Mitoha. Menu khas Sunda berkonsep sharing yang pas untuk 6 orang. Jadwal dibuat longgar agar tidak terburu-buru setelah museum.</p>
+                            <span class="time-badge">12:00 - 13:30</span>
+                            <h3>Makan Siang (Simpang)</h3>
+                            <p>Menuju <b>Ayam Bakar Simpang</b> di daerah Lengkong. Nikmati sajian ayam bakar bumbu meresap yang pas untuk rombongan party keluarga. Jangan lupa coba sambalnya!</p>
                             <div class="tag-container">
-                                <span class="tag cost">💰 Rp 250k - 400k</span>
-                            </div><button class="done-btn" data-stop="3">☐ Tandai selesai</button>
+                                <span class="tag cost">GOLD: 200K - 350K</span>
+                            </div>
+                            <button class="done-btn" data-stop="3">[ ] TANDAI SELESAI</button>
                         </div>
                     </div>
 
@@ -452,14 +496,14 @@
                     <div class="timeline-item">
                         <div class="timeline-icon">🌳</div>
                         <div class="timeline-card">
-                            <span class="time-badge">14.00 - 16.30</span>
+                            <span class="time-badge">14:00 - 16:30</span>
                             <h3>Taman Lalu Lintas</h3>
-                            <p>Bermain playground, naik kereta mini, dan sewa sepeda. Waktu 30 menit setelah makan dipakai sebagai buffer perjalanan dan parkir.</p>
+                            <p>Bermain playground, naik kereta mini, dan sewa sepeda. Zona eksplorasi bebas untuk anak-anak.</p>
                             <div class="tag-container">
-                                <span class="tag cost">🎟️ Tiket: Rp 90k</span>
-                                <span class="tag buffer">⏱️ 30 mnt buffer</span>
-                                <span class="tag cost">🎢 Wahana: ~Rp 100k</span>
-                            </div><button class="done-btn" data-stop="4">☐ Tandai selesai</button>
+                                <span class="tag cost">TIKET: 90K</span>
+                                <span class="tag cost">WAHANA: 100K</span>
+                            </div>
+                            <button class="done-btn" data-stop="4">[ ] TANDAI SELESAI</button>
                         </div>
                     </div>
 
@@ -467,27 +511,30 @@
                     <div class="timeline-item">
                         <div class="timeline-icon">🛏️</div>
                         <div class="timeline-card">
-                            <span class="time-badge">17.00 - 18.00</span>
-                            <h3>Istirahat di Hotel</h3>
-                            <p>Kembali ke hotel untuk mandi, ganti baju, dan istirahat. Jangan dipaksakan kalau anak-anak sudah mulai kelelahan.</p><button class="done-btn" data-stop="9">☐ Tandai selesai</button>
+                            <span class="time-badge">17:00 - 18:00</span>
+                            <h3>Save Point (Hotel)</h3>
+                            <p>Kembali ke hotel untuk mandi, ganti baju, dan istirahat sejenak memulihkan stamina rombongan.</p>
+                            <button class="done-btn" data-stop="9">[ ] TANDAI SELESAI</button>
                         </div>
                     </div>
 
                     <!-- Item 6 -->
                     <div class="timeline-item">
-                        <div class="timeline-icon">🍕</div>
-                        <div class="timeline-card" style="border-left: 4px solid #6366f1;">
-                            <span class="time-badge">18.30 - 20.00</span>
+                        <div class="timeline-icon" style="background:#b28dff">🍕</div>
+                        <div class="timeline-card" style="box-shadow: -6px 0 0 #b28dff, 4px 4px 0 #000;">
+                            <span class="time-badge">18:30 - 20:00</span>
                             <h3>Dinner Braga Permai</h3>
-                            <p>Suasana klasik Eropa. Makan Pizza, Pasta, Ice Cream. Setelahnya bisa mampir jajan di Sweet Cantina.</p>
+                            <p>Makan Malam nuansa klasik. Menu Pizza, Pasta, Ice Cream. Setelahnya bisa mampir jajan di Sweet Cantina.</p>
                             
                             <div class="tip-box">
-                                💡 <b>Tips Parkir:</b> Jangan di pinggir Jalan Braga. Arahkan mobil langsung ke gedung parkir Braga CityWalk yang luas, lalu jalan kaki santai.
+                                <b>💡 TIPS PARKIR:</b>
+                                Jangan parkir di pinggir Jalan Braga. Arahkan mobil langsung ke gedung parkir Braga CityWalk agar aman.
                             </div>
 
                             <div class="tag-container">
-                                <span class="tag cost">💰 Rp 400k - 600k</span>
-                            </div><button class="done-btn" data-stop="5">☐ Tandai selesai</button>
+                                <span class="tag cost">GOLD: 400K - 600K</span>
+                            </div>
+                            <button class="done-btn" data-stop="5">[ ] TANDAI SELESAI</button>
                         </div>
                     </div>
                 </div>
@@ -497,7 +544,7 @@
                 
                 <div class="route-buttons">
                     <a href="https://www.google.com/maps/dir/?api=1&origin=Vue+Palace+Artotel+Bandung&destination=Panama+Park+825+Bandung&waypoints=Taman+Balai+Kota+Bandung&travelmode=driving" target="_blank" class="route-btn route-full">
-                        📍 Buka Rute Hari 2 di Maps
+                        📍 BUKA MAP STAGE 2
                     </a>
                 </div>
 
@@ -506,9 +553,10 @@
                     <div class="timeline-item">
                         <div class="timeline-icon">🧳</div>
                         <div class="timeline-card">
-                            <span class="time-badge">08.00 - 09.00</span>
+                            <span class="time-badge">08:00 - 09:00</span>
                             <h3>Sarapan & Check-out</h3>
-                            <p>Makan pagi di hotel, kemas barang-barang ke dalam mobil untuk persiapan pulang sore nanti.</p><button class="done-btn" data-stop="10">☐ Tandai selesai</button>
+                            <p>Makan pagi di hotel, kemas barang (Inventory) ke dalam mobil untuk persiapan pulang sore nanti.</p>
+                            <button class="done-btn" data-stop="10">[ ] TANDAI SELESAI</button>
                         </div>
                     </div>
 
@@ -516,12 +564,13 @@
                     <div class="timeline-item">
                         <div class="timeline-icon">🍃</div>
                         <div class="timeline-card">
-                            <span class="time-badge">09.15 - 11.30</span>
+                            <span class="time-badge">09:15 - 11:30</span>
                             <h3>Taman Balai Kota</h3>
-                            <p>Bermain santai di area Taman Sejarah (ada kolam dangkal) dan mencari jalan keluar di Taman Labirin. Dekat dari hotel.</p>
+                            <p>Bermain santai di area Taman Sejarah (kolam dangkal) dan mencari jalan keluar di Taman Labirin.</p>
                             <div class="tag-container">
-                                <span class="tag free">💳 Gratis</span>
-                            </div><button class="done-btn" data-stop="6">☐ Tandai selesai</button>
+                                <span class="tag free">FREE ZONE</span>
+                            </div>
+                            <button class="done-btn" data-stop="6">[ ] TANDAI SELESAI</button>
                         </div>
                     </div>
 
@@ -529,25 +578,27 @@
                     <div class="timeline-item">
                         <div class="timeline-icon">🍔</div>
                         <div class="timeline-card">
-                            <span class="time-badge">12.00 - 13.00</span>
+                            <span class="time-badge">12:00 - 13:00</span>
                             <h3>Lunch Panama Park</h3>
-                            <p>Langsung menuju Panama Park dan makan siang di area Food Court dalam supaya praktis. Parkir sangat luas.</p>
+                            <p>Menuju Panama Park, parkir kendaraan, dan langsung isi HP di Food Court dalam supaya lebih praktis.</p>
                             <div class="tag-container">
-                                <span class="tag cost">💰 Rp 250k - 350k</span>
-                            </div><button class="done-btn" data-stop="7">☐ Tandai selesai</button>
+                                <span class="tag cost">GOLD: 250K - 350K</span>
+                            </div>
+                            <button class="done-btn" data-stop="7">[ ] TANDAI SELESAI</button>
                         </div>
                     </div>
 
                     <!-- Item 4 -->
                     <div class="timeline-item">
-                        <div class="timeline-icon">❄️</div>
-                        <div class="timeline-card" style="border-left: 4px solid #38bdf8;">
-                            <span class="time-badge">13.00 - 16.00</span>
-                            <h3>Bermain di Panama Park</h3>
-                            <p>Anak-anak bebas bereksplorasi di indoor playground terbesar! Main salju sungguhan atau mandi bola raksasa di Joy n Fun.</p>
+                        <div class="timeline-icon" style="background:#4deeea">❄️</div>
+                        <div class="timeline-card" style="box-shadow: -6px 0 0 #4deeea, 4px 4px 0 #000;">
+                            <span class="time-badge">13:00 - 16:00</span>
+                            <h3>Panama Park</h3>
+                            <p>Final Boss Area! Eksplorasi indoor playground terbesar. Main salju sungguhan dan mandi bola raksasa di Joy n Fun.</p>
                             <div class="tag-container">
-                                <span class="tag cost">🎢 Wahana: Rp 600k - 800k</span>
-                            </div><button class="done-btn" data-stop="8">☐ Tandai selesai</button>
+                                <span class="tag cost">WAHANA: 600K - 800K</span>
+                            </div>
+                            <button class="done-btn" data-stop="8">[ ] TANDAI SELESAI</button>
                         </div>
                     </div>
 
@@ -555,9 +606,10 @@
                     <div class="timeline-item">
                         <div class="timeline-icon">🚗</div>
                         <div class="timeline-card">
-                            <span class="time-badge">16.30 WIB</span>
-                            <h3>Perjalanan Pulang</h3>
-                            <p>Liburan selesai! Anak-anak bisa tidur pulas di dalam mobil selama perjalanan pulang ke kota asal.</p><button class="done-btn" data-stop="11">☐ Tandai selesai</button>
+                            <span class="time-badge">16:30 WIB</span>
+                            <h3>Misi Selesai</h3>
+                            <p>Quest Selesai! Perjalanan kembali ke basecamp awal. Anak-anak bisa tidur pulas di dalam mobil.</p>
+                            <button class="done-btn" data-stop="11">[ ] TANDAI SELESAI</button>
                         </div>
                     </div>
                 </div>
@@ -567,33 +619,35 @@
                 
                 <div class="budget-hero">
                     <div class="budget-hero-bg">💰</div>
-                    <h3>Estimasi Budget Aktivitas</h3>
-                    <p class="total">Rp 1.812.000 <span class="sub">s/d</span></p>
-                    <p class="total-max">Rp 2.512.000</p>
-                    <p style="font-size: 11px; color: #99f6e4; margin: 12px 0 0 0; text-transform: uppercase; letter-spacing: 0.5px;">*Aktivitas + makan + BBM lokal/parkir • 2 Dewasa & 4 Anak</p>
+                    <h3>ESTIMASI GOLD (BUDGET)</h3>
+                    <p class="total">Rp 1.762.000 <span class="sub" style="font-size: 16px; font-family: 'Press Start 2P';"> s/d</span></p>
+                    <p class="total-max">Rp 2.462.000</p>
+                    <p style="font-family: 'VT323'; font-size: 18px; color: #fff; margin: 12px 0 0 0; border-top: 2px dashed #fff; padding-top: 8px;">*Aktivitas + Makan + BBM Lokal • Party: 2 Dewasa & 4 Anak</p>
                 </div>
 
-                <h3 class="section-title">Rincian Budget</h3>
-<div class="budget-item" style="display:block;">
-  <div class="budget-details">
-    <h4>💳 Catat pengeluaran aktual</h4>
-    <p>Disimpan otomatis di HP ini.</p>
-  </div>
-  <input id="actualBudget" class="budget-input" type="number" inputmode="numeric" placeholder="Contoh: 1850000">
-</div>
+                <h3 class="section-title">INVENTORY GOLD</h3>
+                <div class="budget-item" style="display:block;">
+                    <div class="budget-details">
+                        <h4>💳 CATAT PENGELUARAN</h4>
+                        <p>Auto-save di memori perangkat (Local Storage).</p>
+                    </div>
+                    <input id="actualBudget" class="budget-input" type="number" inputmode="numeric" placeholder="Cth: 1850000">
+                </div>
 
-                <div class="tip-box" style="background:#eff6ff; border-color:#bfdbfe; color:#1e40af;">ℹ️ <b>Patokan:</b> gunakan angka maksimum sebagai plafon aman keluarga. Harga tiket/wahana pada file ini belum diverifikasi ulang.</div>
+                <div class="tip-box" style="background:#e0f8d0; border-color:#000;">
+                    <b>ℹ️ INFO:</b> Patokan angka maksimum adalah plafon aman rombongan. 
+                </div>
                 
                 <!-- Item 1 -->
                 <div class="budget-item">
                     <div class="budget-icon icon-blue">🎟️</div>
                     <div class="budget-details">
-                        <h4>Tiket & Wahana</h4>
-                        <p>Porsi terbesar di Panama Park</p>
+                        <h4>TIKET & WAHANA</h4>
+                        <p>Porsi utama: Panama Park</p>
                     </div>
                     <div class="budget-amount">
-                        <div class="val">~ Rp 812k</div>
-                        <div class="sub">s/d 1.012k</div>
+                        <div class="val">~ Rp 812K</div>
+                        <div class="sub">MAX: 1.012K</div>
                     </div>
                 </div>
 
@@ -601,12 +655,12 @@
                 <div class="budget-item">
                     <div class="budget-icon icon-orange">🍽️</div>
                     <div class="budget-details">
-                        <h4>Konsumsi 6 Orang</h4>
-                        <p>3x makan besar + jajan</p>
+                        <h4>KONSUMSI (RANSUM)</h4>
+                        <p>3x Makan Besar + Jajan</p>
                     </div>
                     <div class="budget-amount">
-                        <div class="val">~ Rp 900k</div>
-                        <div class="sub">s/d 1.350k</div>
+                        <div class="val">~ Rp 850K</div>
+                        <div class="sub">MAX: 1.300K</div>
                     </div>
                 </div>
 
@@ -614,170 +668,137 @@
                 <div class="budget-item">
                     <div class="budget-icon icon-gray">⛽</div>
                     <div class="budget-details">
-                        <h4>BBM Lokal & Parkir</h4>
-                        <p>Jarak wisata berdekatan</p>
+                        <h4>BBM LOKAL & PARKIR</h4>
+                        <p>Jarak wisata cukup dekat</p>
                     </div>
                     <div class="budget-amount">
-                        <div class="val">~ Rp 100k</div>
-                        <div class="sub">s/d 150k</div>
+                        <div class="val">~ Rp 100K</div>
+                        <div class="sub">MAX: 150K</div>
                     </div>
-                </div>
-
-                <div class="tip-box" style="margin-top: 24px; background: #f0fdf4; border-color: #bbf7d0; color: #166534;">
-                    ℹ️ <b>Catatan:</b> Angka ini adalah <b>budget aktivitas selama di Bandung</b>. Belum termasuk hotel dan bensin/tol dari kota asal menuju Bandung.
                 </div>
 
             </div>
         </div>
 
         <div style="padding: 0 20px 20px;">
-            <div class="tip-box" style="margin-bottom:0;">
-                📌 <b>Catatan perjalanan:</b> jadwal sudah diberi buffer agar keluarga tidak perlu mengejar jam. Jika lalu lintas atau kondisi anak berubah, prioritaskan makan, istirahat, lalu lanjutkan tujuan berikutnya.
+            <div class="tip-box" style="margin-bottom:0; background: #ffccbc;">
+                <b>📌 HINT PETUNJUK:</b> Jadwal memiliki buffer waktu. Jika HP (Health) anak-anak menurun, utamakan istirahat/makan, hiraukan jadwal jam.
             </div>
         </div>
     </div>
 
     <script>
+        // TAB LOGIC
         function switchTab(tabId, clickedBtn) {
-            // 1. Sembunyikan semua konten tab
             const contents = document.querySelectorAll('.tab-content');
             contents.forEach(content => {
                 content.classList.remove('active');
             });
 
-            // 2. Tampilkan konten yang dipilih
             document.getElementById(tabId).classList.add('active');
 
-            // 3. Reset semua tombol tab
             const buttons = document.querySelectorAll('.tab-btn');
             buttons.forEach(btn => {
                 btn.classList.remove('active');
             });
 
-            // 4. Set tombol yang di-klik menjadi aktif
             clickedBtn.classList.add('active');
-
-            // 5. Scroll otomatis ke atas
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+
+        // SAVE STATE & PROGRESS LOGIC
+        const STORAGE_KEY = 'bandung-trip-pixel-v1';
+        const BUDGET_KEY = 'bandung-trip-pixel-budget-v1';
+
+        const stopButtons = [...document.querySelectorAll('.done-btn')];
+        const stopCards = stopButtons.map(btn => btn.closest('.timeline-card'));
+        const stopNames = stopCards.map(card => {
+            const h3 = card && card.querySelector('h3');
+            return h3 ? h3.textContent.trim() : 'Tujuan';
+        });
+
+        function loadState(){
+            try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch(e){ return {}; }
+        }
+        function saveState(state){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+
+        function updateUI(){
+            const state = loadState();
+            let done = 0;
+            
+            stopButtons.forEach((btn, i) => {
+                const yes = !!state[i];
+                if (yes) done++;
+                if (stopCards[i]) stopCards[i].classList.toggle('done', yes);
+                // Update label to match retro theme
+                btn.textContent = yes ? '[X] SELESAI (UNDO)' : '[ ] TANDAI SELESAI';
+            });
+            
+            const total = stopButtons.length;
+            document.getElementById('progressText').textContent = `LVL ${done}/${total}`;
+            document.getElementById('progressFill').style.width = total ? `${done/total*100}%` : '0%';
+
+            const next = stopNames.findIndex((_, i) => !state[i]);
+            const nextName = document.getElementById('nextStopName');
+            const nav = document.getElementById('navigateBtn');
+            
+            if(next === -1){
+                nextName.textContent = '🎉 QUEST COMPLETE!';
+                nav.style.display = 'none';
+            } else {
+                nextName.textContent = stopNames[next];
+                nav.style.display = 'inline-block';
+                nav.dataset.query = stopNames[next] + ' Bandung';
+            }
+        }
+
+        stopButtons.forEach((btn, i) => {
+            btn.addEventListener('click', () => {
+                const state = loadState();
+                state[i] = !state[i];
+                saveState(state);
+                updateUI();
+            });
+        });
+
+        document.getElementById('navigateBtn').addEventListener('click', function(){
+            const q = encodeURIComponent(this.dataset.query || 'Bandung');
+            location.href = `https://www.google.com/maps/search/?api=1&query=${q}`;
+        });
+
+        // BUDGET INPUT
+        const budgetInput = document.getElementById('actualBudget');
+        if (budgetInput) {
+            budgetInput.value = localStorage.getItem(BUDGET_KEY) || '';
+            budgetInput.addEventListener('input', () => localStorage.setItem(BUDGET_KEY, budgetInput.value));
+        }
+
+        const originalSwitchTab = window.switchTab;
+        window.switchTab = function(tabId, clickedBtn){
+            originalSwitchTab(tabId, clickedBtn);
+            updateUI();
+        };
+
+        // PWA INSTALL PROMPT
+        let deferredPrompt = null;
+        const installBar = document.getElementById('installBar');
+        const installBtn = document.getElementById('installBtn');
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            installBar.style.display = 'flex';
+        });
+        installBtn.addEventListener('click', async () => {
+            if(!deferredPrompt) return;
+            deferredPrompt.prompt();
+            await deferredPrompt.userChoice;
+            deferredPrompt = null;
+            installBar.style.display = 'none';
+        });
+        window.addEventListener('appinstalled', () => installBar.style.display = 'none');
+
+        // INITIALIZE
+        updateUI();
     </script>
-
-<script>
-        function switchTab(tabId, clickedBtn) {
-            // 1. Sembunyikan semua konten tab
-            const contents = document.querySelectorAll('.tab-content');
-            contents.forEach(content => {
-                content.classList.remove('active');
-            });
-
-            // 2. Tampilkan konten yang dipilih
-            document.getElementById(tabId).classList.add('active');
-
-            // 3. Reset semua tombol tab
-            const buttons = document.querySelectorAll('.tab-btn');
-            buttons.forEach(btn => {
-                btn.classList.remove('active');
-            });
-
-            // 4. Set tombol yang di-klik menjadi aktif
-            clickedBtn.classList.add('active');
-
-            // 5. Scroll otomatis ke atas
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-    
-const STORAGE_KEY = 'bandung-trip-progress-v1';
-const BUDGET_KEY = 'bandung-trip-budget-v1';
-
-const stopButtons = [...document.querySelectorAll('.done-btn')];
-const stopCards = stopButtons.map(btn => btn.closest('.timeline-card'));
-const stopNames = stopCards.map(card => {
-  const h3 = card && card.querySelector('h3');
-  return h3 ? h3.textContent.trim() : 'Tujuan';
-});
-
-function loadState(){
-  try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); } catch(e){ return {}; }
-}
-function saveState(state){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
-
-function updateUI(){
-  const state = loadState();
-  let done = 0;
-  stopButtons.forEach((btn, i) => {
-    const yes = !!state[i];
-    if (yes) done++;
-    if (stopCards[i]) stopCards[i].classList.toggle('done', yes);
-    btn.textContent = yes ? '☑ Selesai • Ketuk untuk batalkan' : '☐ Tandai selesai';
-  });
-  const total = stopButtons.length;
-  document.getElementById('progressText').textContent = `${done}/${total}`;
-  document.getElementById('progressFill').style.width = total ? `${done/total*100}%` : '0%';
-
-  const next = stopNames.findIndex((_, i) => !state[i]);
-  const nextName = document.getElementById('nextStopName');
-  const nav = document.getElementById('navigateBtn');
-  if(next === -1){
-    nextName.textContent = '🎉 Semua tujuan selesai!';
-    nav.style.display = 'none';
-  } else {
-    nextName.textContent = stopNames[next];
-    nav.style.display = 'inline-block';
-    const card = stopCards[next];
-    const text = card ? card.querySelector('p')?.textContent || '' : '';
-    nav.dataset.query = stopNames[next] + ' Bandung';
-  }
-}
-
-stopButtons.forEach((btn, i) => {
-  btn.addEventListener('click', () => {
-    const state = loadState();
-    state[i] = !state[i];
-    saveState(state);
-    updateUI();
-  });
-});
-
-document.getElementById('navigateBtn').addEventListener('click', function(){
-  const q = encodeURIComponent(this.dataset.query || 'Bandung');
-  location.href = `https://www.google.com/maps/search/?api=1&query=${q}`;
-});
-
-const budgetInput = document.getElementById('actualBudget');
-if (budgetInput) {
-  budgetInput.value = localStorage.getItem(BUDGET_KEY) || '';
-  budgetInput.addEventListener('input', () => localStorage.setItem(BUDGET_KEY, budgetInput.value));
-}
-
-// Preserve original tab switch behavior and refresh the next-stop display.
-const originalSwitchTab = window.switchTab;
-window.switchTab = function(tabId, clickedBtn){
-  originalSwitchTab(tabId, clickedBtn);
-  updateUI();
-};
-
-let deferredPrompt = null;
-const installBar = document.getElementById('installBar');
-const installBtn = document.getElementById('installBtn');
-window.addEventListener('beforeinstallprompt', (e) => {
-  e.preventDefault();
-  deferredPrompt = e;
-  installBar.style.display = 'flex';
-});
-installBtn.addEventListener('click', async () => {
-  if(!deferredPrompt) return;
-  deferredPrompt.prompt();
-  await deferredPrompt.userChoice;
-  deferredPrompt = null;
-  installBar.style.display = 'none';
-});
-window.addEventListener('appinstalled', () => installBar.style.display = 'none');
-
-if ('serviceWorker' in navigator) {
-  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js'));
-}
-
-updateUI();
-</script>
 </body>
 </html>
